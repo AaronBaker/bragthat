@@ -319,6 +319,76 @@ var s = {
 
 
     ]
+  },
+  dashboard: {
+    zones:[
+      {
+        name: "East",
+        value: 22,
+        percentValue: "16%"
+      },
+      {
+        name: "Central",
+        value: 31,
+        percentValue: "24%"
+      },
+      {
+        name: "West",
+        value: 66,
+        percentValue: "50%"
+      },
+      {
+        name: "NOSR",
+        value: 12,
+        percentValue: "9%"
+      }
+    ],
+    status: {
+      pending:3,
+      active:11,
+      cancelled:4,
+      completed:13
+    },
+    type: [
+      {
+        name:"Assets",
+        percentValue:"32%"
+      },
+      {
+        name:"Channel",
+        percentValue:"57%"
+      },
+      {
+        name:"New Product",
+        percentValue:"15%"
+      },
+      {
+        name:"Launch Test",
+        percentValue:"80%"
+      },
+      {
+        name:"Pillar",
+        percentValue:"21%"
+      }
+    ],
+    finance: {
+      requested: {
+        count: 18,
+        value: "$120K"
+      },
+      utilized: {
+        count: 11,
+        value: "$89K"
+      },
+      approved: {
+        count: 16,
+        value: "$102K"
+      },
+      rejected: {
+        count: 12,
+        value: "$18K"
+      }
+    }
   }
 
 };

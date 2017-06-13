@@ -27,17 +27,19 @@ var homepage = new Vue({
 
     var ctx = $("#donut-chart");
 
-    var data = {
-        labels: [
-            "East",
-            "Central",
-            "West",
-            "NOSR"
+    //get chart data array from data
+    var chartLabels = [];
+    var chartData = [];
+    $.each(s.dashboard.zones,function(index,zone){
+      chartLabels.push(zone.name);
+      chartData.push(zone.value);
+    });
 
-        ],
+    var data = {
+        labels: chartLabels,
         datasets: [
             {
-                data: [200, 50, 100,225],
+                data: chartData,
                 backgroundColor: [
                     "#107493",
                     "#168ab6",
