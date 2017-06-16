@@ -1,4 +1,3 @@
-var s = {};
 var gauge;
 
   var homepage = new Vue({
@@ -6,7 +5,15 @@ var gauge;
   data: function(){
 
     return {
-      s:s//s is for app State
+      s:s,//s is for app State
+      gaugeValue: 8,
+      gaugeLabel: "8 - Worth Your time",
+      selectedShow: null,
+      selectedShowTitle:null,
+      selectedShowImage:null,
+      comment:null,
+      isInputActive:false,
+      isFormOpen: false
     }
 
   },
@@ -37,7 +44,8 @@ var gauge;
     gauge.maxValue = 180; // set max gauge value
     gauge.setMinValue(0);  // Prefer setter over gauge.minValue = 0
     gauge.animationSpeed = 30; // set animation speed (32 is default value)
-    gauge.set(140); // set actual value
+    gauge.set(145); // set actual value
+
 
 
   },
@@ -47,6 +55,29 @@ var gauge;
 
   },
   methods: {
+    submitPost: function(){
+
+      var newPost = {
+        author: "JohnFord",
+        show: this.selectedShow,
+        comment: this.comment,
+        rating: this.gaugeValue
+      };
+
+      s.posts.unshift(newPost);
+
+      this.isFormOpen = false;
+    },
+    chooseOption: function(index){
+
+
+      console.log(index);
+
+      var show = s.shows[index];
+      this.selectedShow = show;
+      this.selectedShowTitle = show.title;
+
+    },
     setGauge: function(event){
 
 
@@ -68,6 +99,24 @@ var gauge;
 
       gauge.set(angleDeg);
 
+      this.gaugeValue = roundHalf( (angleDeg/180)*10 );
+
+      var vThis = this;
+
+      $.each(s.thresholds,function(index,thresh){
+
+
+          if (thresh.value <= vThis.gaugeValue){
+            vThis.gaugeLabel = vThis.gaugeValue + " - " + thresh.text;
+          }
+
+      });
+
     }
   }
 });
+
+
+function roundHalf(num) {
+    return Math.round(num*2)/2;
+}

@@ -146,3 +146,85 @@ h3 {
   margin:0px auto;
   padding:0px;
 }
+
+.gauge-label {
+  z-index: -1;
+  width: 280px;
+  text-align: center;
+  margin: auto;
+  position: absolute;
+  left: 13%;
+  top: 135px;
+}
+
+
+.field-extension {
+    z-index: 1345;
+	  background-color: hsl(0, 0%, 19%);
+    position: absolute;
+    width: 89%;
+}
+
+.extension-box {
+
+  width:100%;
+  border:1px solid #bbb;
+  border-top:0px;
+  padding:8px;
+  cursor:pointer;
+
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+
+}
+
+.extension-box:hover {
+
+
+}
+
+.poster-cell img {
+  height:75px;
+}
+
+.poster-cell {
+  margin:10px 10px 10px 0px;
+}
+
+.post {
+  border-bottom: 1px solid #353535;
+}
+
+.score-cell {
+  text-align: right;
+  font-weight: 600;
+  font-size:24px;
+}
+
+.form-container {
+  height:20px;
+  overflow: hidden;
+}
+
+.posts-container {
+  margin:0px 20px;
+}
+
+.formActive {
+  height:auto;
+}
+
+.posts-container table {
+  width:100%;
+  z-index: 23423;
+  background-color: #191C20;
+}
+
+.author-text {
+  color: rgb(148, 148, 148);
+}
+
+.show-title-text {
+  font-weight: 700;
+}

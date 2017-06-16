@@ -7,23 +7,39 @@
 		<link rel="stylesheet" href="css/style.css?v=1.0">
 
 		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+
 </head>
 <body class="index">
 
 <div id="target">
 
-	<div class="form-container">
+	<div class="form-container" :class="{formActive:isFormOpen}">
 		<div class="input-box">
-			<input type="text" placeholder="Find Your Thing">
+			<input type="text" placeholder="Find Your Thing" v-model="selectedShowTitle" @blur="isInputActive = false" @focus="isInputActive = true; isFormOpen = true">
+			<div class="field-extension" v-if="isInputActive">
+				<div v-on:mousedown="chooseOption(index)" class="extension-box" v-for="(show,index) in s.shows">
+					<div class="extension-name">{{show.title}}</div>
+				</div>
+			</div>
+
 		</div>
+
+
 		<div class="input-box">
-			<textarea placeholder="Why is it awesome?"></textarea>
+			<textarea v-model="comment" placeholder="Why is it awesome?"></textarea>
+		</div>
+
+
+		<div class="gauge-label">
+			{{gaugeLabel}}
 		</div>
 		<v-touch tag="div" class="gauge-div" v-on:pan="setGauge" v-on:tap="setGauge">
-			<canvas id="gauge" width=335 height=180></canvas>
+			<canvas id="gauge" width=335 height=150></canvas>
 		</v-touch>
 		<div>
-			<button>BRAG THAT.</button>
+			<button v-on:click="submitPost">BRAG THAT.</button>
 		</div>
 
 
@@ -31,14 +47,34 @@
 
 	</div>
 	<div class="posts-container">
-		<div class="post">
+		<div class="post" v-for="(post,index) in s.posts">
+			<table>
+				<tr>
+					<td>
+						<div class="poster-cell">
+							<img :src="post.show.imgURL" />
+						</div>
+					</td>
+					<td>
+						<div class="detail-cell">
+
+							<div class="show-title-text">{{post.show.title}}</div>
+							<div class="show-comment-text">{{post.comment}}<span class="author-text"> <nobr> -{{post.author}}</nobr></span></div>
 
 
+						</div>
+					</td>
+					<td>
+
+						<div class="score-cell">
+
+							{{post.rating}}
+						</div>
+					</td>
+				</tr>
+			</table>
 		</div>
-
-
 	</div>
-
 
 </div><!--end div id=target -->
 
@@ -62,7 +98,7 @@
 	<script src="js/vue-touch.js"></script>
 
 <!-- ---------------------------------------------- -->
-
+  <script src="js/data.js"></script>
 	<script src="js/index.js"></script>
 
 </body>
