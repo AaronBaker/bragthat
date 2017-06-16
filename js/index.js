@@ -11,6 +11,7 @@ var gauge;
       selectedShow: null,
       selectedShowTitle:null,
       selectedShowImage:null,
+      searchQuery: null,
       comment:null,
       isInputActive:false,
       isFormOpen: false
@@ -55,11 +56,23 @@ var gauge;
 
   },
   methods: {
+    fieldUpdated: function(){
+      var query = encodeURIComponent(this.searchQuery);
+      var url = "https://api.themoviedb.org/3/search/multi?api_key=686ba5aba1a483a9ed0b150ef8684230&language=en-US&query="+query+"&page=1&include_adult=false";
+
+      $.getJSON( url, function( data ) {
+        s.searchResults = data.results;
+      });
+
+    },
     submitPost: function(){
 
       var newPost = {
         author: "JohnFord",
-        show: this.selectedShow,
+        show: {
+          title: this.selectedShowTitle,
+          imgURL: "https://image.tmdb.org/t/p/w185"+this.selectedShow.poster_path
+        },
         comment: this.comment,
         rating: this.gaugeValue
       };
@@ -70,12 +83,18 @@ var gauge;
     },
     chooseOption: function(index){
 
-
-      console.log(index);
-
-      var show = s.shows[index];
+      var show = s.searchResults[index];
       this.selectedShow = show;
-      this.selectedShowTitle = show.title;
+
+      if (show.original_name) {
+        this.selectedShowTitle = show.original_name;
+      }
+      if (show.title) {
+        this.selectedShowTitle = show.title;
+      }
+
+      this.searchQuery = this.selectedShowTitle;
+
 
     },
     setGauge: function(event){

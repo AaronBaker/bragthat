@@ -17,20 +17,18 @@
 
 	<div class="form-container" :class="{formActive:isFormOpen}">
 		<div class="input-box">
-			<input type="text" placeholder="Find Your Thing" v-model="selectedShowTitle" @blur="isInputActive = false" @focus="isInputActive = true; isFormOpen = true">
+			<input v-on:keyup="fieldUpdated" type="text" placeholder="Find Your Thing" v-model="searchQuery" @blur="isInputActive = false" @focus="isInputActive = true; isFormOpen = true">
 			<div class="field-extension" v-if="isInputActive">
-				<div v-on:mousedown="chooseOption(index)" class="extension-box" v-for="(show,index) in s.shows">
-					<div class="extension-name">{{show.title}}</div>
+				<div v-on:mousedown="chooseOption(index)" class="extension-box" v-for="(show,index) in s.searchResults" v-if="show.vote_count >= 20">
+					<div class="extention-image"></div>
+					<div class="extension-name">{{show.original_name || show.title}}</div>
 				</div>
 			</div>
-
 		</div>
-
 
 		<div class="input-box">
 			<textarea v-model="comment" placeholder="Why is it awesome?"></textarea>
 		</div>
-
 
 		<div class="gauge-label">
 			{{gaugeLabel}}
