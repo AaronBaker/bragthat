@@ -1,9 +1,11 @@
 var s = {
 
   searchResults: [
-    
+
   ]
 ,
+
+
   posts: [
     {
       author: "JohnFord",
