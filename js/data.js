@@ -1,11 +1,6 @@
 var s = {
-
-  searchResults: [
-
-  ]
-,
-
-
+  user:null,
+  searchResults: [],
   posts: [
     {
       author: "JohnFord",

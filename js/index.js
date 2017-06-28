@@ -1,6 +1,6 @@
 var gauge;
 
-  var homepage = new Vue({
+var homepage = new Vue({
   el: '#target',
   data: function(){
 
@@ -14,7 +14,9 @@ var gauge;
       searchQuery: null,
       comment:null,
       isInputActive:false,
-      isFormOpen: false
+      isFormOpen: false,
+      showLoginModal:true,
+      cancelMessage: "Not Right Now"
     }
 
   },
@@ -67,31 +69,53 @@ var gauge;
     },
     submitPost: function(){
 
-      var newPost = {
-        author: "JohnFord",
-        show: {
-          title: this.selectedShowTitle,
-          imgURL: "https://image.tmdb.org/t/p/w185"+this.selectedShow.poster_path
-        },
-        comment: this.comment,
-        rating: this.gaugeValue
-      };
+      var vThis = this;
 
-      s.posts.unshift(newPost);
+      userIsLoggedIn(function(isLoggedIn){
 
-      this.isFormOpen = false;
+
+        if (isLoggedIn) {
+          var newPost = {
+            author: "JohnFord",
+            show: {
+              title: vThis.selectedShowTitle,
+              imgURL: "https://image.tmdb.org/t/p/w185"+vThis.selectedShow.poster_path
+            },
+            comment: vThis.comment,
+            rating: vThis.gaugeValue
+          };
+
+          s.posts.unshift(newPost);
+          vThis.isFormOpen = false;
+
+        } else {
+          vThis.showLoginModal = true;
+          vThis.cancelMessage = "Nevermind, I didn't want to post anyway.";
+        }
+
+
+
+
+      });
+
+
+
+
     },
     chooseOption: function(index){
 
       var show = s.searchResults[index];
       this.selectedShow = show;
-
-      if (show.original_name) {
-        this.selectedShowTitle = show.original_name;
-      }
       if (show.title) {
         this.selectedShowTitle = show.title;
       }
+      if (show.original_name) {
+        this.selectedShowTitle = show.original_name;
+      }
+      if (show.name) {
+        this.selectedShowTitle = show.name;
+      }
+
 
       this.searchQuery = this.selectedShowTitle;
 
@@ -131,10 +155,32 @@ var gauge;
 
       });
 
+    },
+    logout: function(){
+
+      firebase.auth().signOut().then(function() {
+        // Sign-out successful.
+      }, function(error) {
+        // An error happened.
+      });
+
     }
   }
 });
 
+
+function userIsLoggedIn( callback ){
+
+  if (s.user){
+
+    callback(true);
+
+  } else {
+
+    callback(false);
+
+  }
+}
 
 function roundHalf(num) {
     return Math.round(num*2)/2;

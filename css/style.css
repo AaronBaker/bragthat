@@ -15,8 +15,6 @@
 }
 
 
-
-
 a:hover {
 
 	cursor:pointer;
@@ -227,4 +225,60 @@ h3 {
 
 .show-title-text {
   font-weight: 700;
+}
+
+/****************** authentication ********************/
+/****************** authentication ********************/
+/****************** authentication ********************/
+
+.auth-modal-container {
+ display: none;
+}
+
+.auth-modal-container.modal-active {
+  display: block;
+}
+
+.auth-modal{
+  padding: 20px 0px 20px 0px;
+  text-align: center;
+  width: 80%;
+  background-color: gray;
+  margin: 154px auto;
+  box-shadow: 0 0 13px 5px rgba(255, 255, 255, 0.73);
+  position: absolute;
+  left: 0px;
+  right: 0px;
+
+}
+
+.auth-message-detail {
+  font-weight: 700;
+}
+
+.auth-cancel {
+  text-decoration: underline;
+      font-size: 11px;
+      color: #191c20;
+}
+
+.user-box {
+  font-size: 11px;
+  position: fixed;
+  bottom:0px;
+  z-index: 2346;
+  background-color:#1E2127;
+  border-top:1px solid gray;
+  width:100%;
+  padding:4px;
+  box-sizing: border-box;
+
+
+}
+
+.logout-button {
+  text-decoration: underline;
+  float:right;
+  font-size: 11px;
+  color:gray;
 }
