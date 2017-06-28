@@ -1,6 +1,6 @@
 // FirebaseUI config.
 var uiConfig = {
-  signInSuccessUrl: '/',
+  signInSuccessUrl: '/bragthat',
   signInOptions: [
     // Leave the lines as is for the providers you want to offer your users.
     // firebase.auth.GoogleAuthProvider.PROVIDER_ID,
