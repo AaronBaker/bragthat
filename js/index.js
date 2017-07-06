@@ -1,5 +1,20 @@
 var gauge;
 
+
+
+
+// Set Brags firebase object
+var Brags = firebase.database().ref('/brags');
+// Watch for value changes on Todos, set todoList.todos property as the value
+Brags.on('value', function(snapshot) {
+  console.log("FIREBASE UPDATE");
+  s.posts = snapshot.val();
+
+
+  //localStorage.setItem("todos", JSON.stringify( todoList.todos ) );
+})
+
+
 var homepage = new Vue({
   el: '#target',
   data: function(){
@@ -76,7 +91,7 @@ var homepage = new Vue({
 
         if (isLoggedIn) {
           var newPost = {
-            author: "JohnFord",
+            author: s.user.displayName,
             show: {
               title: vThis.selectedShowTitle,
               imgURL: "https://image.tmdb.org/t/p/w185"+vThis.selectedShow.poster_path
@@ -85,8 +100,15 @@ var homepage = new Vue({
             rating: vThis.gaugeValue
           };
 
-          s.posts.unshift(newPost);
+          var item = Brags.push(newPost);
+          item.setWithPriority(yourObject, 0 - Date.now());
+
+          //s.posts.unshift(newPost);
           vThis.isFormOpen = false;
+          vThis.selectedShowTitle = null;
+          vThis.selectedShow = null;
+          vThis.comment = null;
+          vThis.gaugeValue = 8;
 
         } else {
           vThis.showLoginModal = true;
