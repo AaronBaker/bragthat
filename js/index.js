@@ -67,12 +67,16 @@ var homepage = new Vue({
 
 
   },
+
   updated: function() {
 
     console.log("updated");
 
   },
   methods: {
+    loginWithEmail: function() {
+      ui.start('#firebaseui-auth-container', uiConfig);
+    },
     fieldUpdated: function(){
       var query = encodeURIComponent(this.searchQuery);
       var url = "https://api.themoviedb.org/3/search/multi?api_key=686ba5aba1a483a9ed0b150ef8684230&language=en-US&query="+query+"&page=1&include_adult=false";
@@ -100,8 +104,8 @@ var homepage = new Vue({
             rating: vThis.gaugeValue
           };
 
-          var item = Brags.push(newPost);
-          item.setWithPriority(yourObject, 0 - Date.now());
+          var item = Brags.push();
+          item.setWithPriority(newPost, 0 - Date.now());
 
           //s.posts.unshift(newPost);
           vThis.isFormOpen = false;

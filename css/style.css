@@ -282,3 +282,10 @@ h3 {
   font-size: 11px;
   color:gray;
 }
+
+.login-button {
+  margin:10px;
+  padding:10px;
+  color:white;
+  background-color:#3169F5;
+}
